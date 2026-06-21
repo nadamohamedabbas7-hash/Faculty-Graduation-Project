@@ -543,9 +543,14 @@ pct_tables_2021 <- lapply(
 bivariate_tables_2021
 pct_tables_2021
 
-# 4. Internet access rate by urban/rural (correct direction)
+# 4. reversed direction treated account as independent not outcome
 prop.table(table(data_2021$urbanicity, data_2021$internetaccess), 1) * 100
-
+prop.table(table(data_2021$account,data_2021$saved),1)
+prop.table(table(data_2024$account,data_2024$saved),1)
+prop.table(table(data_2021$account,data_2021$borrowed),1)
+prop.table(table(data_2024$account,data_2024$borrowed),1)
+prop.table(table(data_2021$account, data_2021$fin_resilience), 1)
+prop.table(table(data_2024$account, data_2024$fin_resilience), 1)
 # =====================================================
 # BIVARIATE DESCRIPTIVES - 2024
 # =====================================================
@@ -1015,7 +1020,8 @@ library(brant)
 
 data_2021_unbanked <- subset(data_2021, account_fin == "No")
 data_2024_unbanked <- subset(data_2024, account_fin == "No")
-
+dim(data_2021_unbanked)
+dim(data_2024_unbanked)
 # -------------------------
 # 2021 BARRIERS
 # -------------------------
@@ -1066,6 +1072,7 @@ barriers_all %>%
     family   = mean(family, na.rm = TRUE) * 100,
     trust    = mean(trust, na.rm = TRUE) * 100
   )
+
 # =========================
 # 5. PLOT COMPARISON
 # =========================
@@ -1308,6 +1315,4 @@ final_cluster_table <- bind_rows(profile_2021, profile_2024)
 # show full table
 print(final_cluster_table, width = Inf)
 
-prop.table(table(data_2024$con1,data_2024$anydigpayment))
-table(data_2024)
-table(data_all$borrowed,data_all$account)
+
